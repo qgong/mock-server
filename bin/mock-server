@@ -56,10 +56,20 @@ def main():
                       options.custom_provider)
     print("Serving on %s:%s.." % (options.address, options.port))
 
-    server = HTTPServer(app)
-    server.bind(options.port, options.address)
-    server.start(options.num_processes)
-    IOLoop.instance().start()
+    if(options.port!=443):
+        app.listen(options.port, options.address)
+        tornado.ioloop.IOLoop.instance().start()
+    else:
+        #start https 
+        server = HTTPServer(app,
+            ssl_options = {
+               "certfile": os.path.join("/etc/httpd/conf/server.crt"),
+               "keyfile": os.path.join("/etc/httpd/conf/server.key"),
+            },
+        )
+        server.bind(options.port, options.address)
+        server.start(options.num_processes)
+        tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == "__main__":
