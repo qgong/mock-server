@@ -37,6 +37,7 @@ class BrewHubMock():
     global dynData # build related data, some of data are unique
     global buildroot_id # build root unique id 
     global nvr_id # package nvr unique id 
+    global paramSettings # setup parameters    
     
     # initial data
     dynData = {'package_name':'libwacom','task_id':8708068,'creation_event_id':9360886,
@@ -44,6 +45,7 @@ class BrewHubMock():
                       "id":779902,"name":"libwacom"}
     buildroot_id = 7160000
     nvr_id = 7962202
+    paramSettings = {}
 
 
     @staticmethod

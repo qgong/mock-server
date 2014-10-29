@@ -12,11 +12,12 @@ def provider(request):
 
     if request.uri == '/bugzilla':
         headers = [("Content-Type", request.headers["Content-Type"]+"; charset=utf-8")]
-        if request.headers["Content-Type"]== 'application/jsonrpc':
+        method_name = ''
+        if request.headers["Content-Type"].find('application/jsonrpc')>=0:
             data = jsonrpclib.loads(request.body)
             method_name = data["method"]
-        elif request.headers["Content-Type"]== 'text/xml':
+        elif request.headers["Content-Type"].find('text/xml')>=0:
             method_name =  xmlrpclib.loads(request.body)[1]
 
-        responseData = CustomResponse.callMethod(request.body,method_name)
+        reponseData = CustomResponse.callMethod(request.body,method_name)
         return Response(responseData, headers, 200)
