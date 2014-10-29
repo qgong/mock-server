@@ -19,5 +19,5 @@ def provider(request):
         elif request.headers["Content-Type"].find('text/xml')>=0:
             method_name =  xmlrpclib.loads(request.body)[1]
 
-        reponseData = CustomResponse.callMethod(request.body,method_name)
+        responseData = CustomResponse.callMethod(request.body,method_name)
         return Response(responseData, headers, 200)
