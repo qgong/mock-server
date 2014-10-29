@@ -16,6 +16,7 @@ define("application_data", help="Application data file",
        default="application.json")
 define("num_processes", help="Number of child processes", default=1, type=int)
 define("custom_provider", help="Custom response provider")
+define("cfdir", help="ssl keyfile and certfile dir for https")
 
 
 def command_line_options():
@@ -60,8 +61,8 @@ def main():
     if(options.port==443):
         server = HTTPServer(app,
             ssl_options = {
-               "certfile": os.path.join("/etc/httpd/conf/server.crt"),
-               "keyfile": os.path.join("/etc/httpd/conf/server.key"),
+               "certfile": os.path.join(options.cfdir + "/server.crt"),
+               "keyfile": os.path.join(options.cfdir + "/server.key"),
             },
         )
 
